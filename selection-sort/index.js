@@ -79,7 +79,7 @@ function testSort (sortName, sort, num) {
   const arr = []
 
   for (let i = 0; i < num; i++) {
-    const val = Math.ceil(Math.random() * 5)
+    const val = Math.ceil(Math.random() * 100000)
 
     arr.push(val)
   }
