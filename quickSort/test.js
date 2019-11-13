@@ -125,6 +125,7 @@ function mergeSortBU (arr) {
 function isSorted (arr) {
   for (let i = 1; i < arr.length; i++) {
     if (arr[i] < arr[i - 1]) {
+      console.error(i)
       return false
     }
   }
@@ -139,7 +140,8 @@ function quickSort (arr) {
 
 function __quickSort (arr, l, r) {
   // 递归到底的条件
-  if (l >= r) {
+  if (r - l <= 15) {
+    __insertSort(arr, l, r)
     return
   }
   // 找到首元素排序完成后所处的索引
@@ -152,6 +154,13 @@ function __quickSort (arr, l, r) {
 
 // 返回arr[l]在排序完成之后的索引
 function partition (arr, l, r) {
+  const temp = arr[l]
+  const random = parseInt(Math.random() * (r - l)) + l
+  // 先交换l和random的值，防止性能退化为O(n2)级别
+  // 如果每次只取首元素作为参考值，在对近乎有序的数组进行排序时，性能会退化为O(n2)级别
+  arr[l] = arr[random]
+  arr[random] = temp
+
   const val = arr[l]
   let j = l
 
@@ -191,8 +200,8 @@ function testSort(sortName, sort, num, times = null) {
 
   if (times) {
     for (let i = 0; i < times; i++) {
-      const a = Math.ceil(Math.random() * num)
-      const b = Math.ceil(Math.random() * num)
+      const a = Math.floor(Math.random() * num)
+      const b = Math.floor(Math.random() * num)
       const temp = arr[a]
 
       arr[a] = arr[b]
@@ -200,9 +209,13 @@ function testSort(sortName, sort, num, times = null) {
     }
   }
 
+  console.log(arr)
+
   const time1 = (new Date()).getTime()
   sort(arr)
   const time2 = (new Date()).getTime()
+
+  console.log(arr)
 
   if (!isSorted(arr)) {
     throw Error(sortName + ' error!')
