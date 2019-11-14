@@ -209,13 +209,13 @@ function testSort(sortName, sort, num, times = null) {
     }
   }
 
-  console.log(arr)
+  // console.log(arr)
 
   const time1 = (new Date()).getTime()
   sort(arr)
   const time2 = (new Date()).getTime()
 
-  console.log(arr)
+  // console.log(arr)
 
   if (!isSorted(arr)) {
     throw Error(sortName + ' error!')

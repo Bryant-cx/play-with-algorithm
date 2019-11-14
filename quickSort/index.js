@@ -84,3 +84,53 @@ function partition2 (arr, l, r) {
 
   return gt
 }
+
+// 三路快排
+function quickSort3Ways (arr) {
+  __quickSort3Ways(arr, 0, arr.length - 1)
+}
+
+// 形成 < val; == val; > val 三部分
+// 然后再对 < val和 > val的部分进行三路快排
+function __quickSort3Ways (arr, l, r) {
+  if (r - l <= 15) {
+    __insertSort(arr, l, r)
+    return
+  }
+
+  // 先将首元素与一个随机位置的元素交换位置，防止算法性能退化到O(n2)级别
+  const random = parseInt(Math.random() * (r - l) + l)
+  const val = arr[random]
+  arr[random] = arr[l]
+  arr[l] = val
+
+  // partition部分
+  let lt = l          // [l + 1, lt]区间内的元素小于val
+  let gt = r + 1      // [gr, r]区间内的元素大于val
+  let i = l + 1       // [lt + 1, i)区间内的元素等于val
+
+  while (i < gt) {
+    if (arr[i] < val) {
+      const temp = arr[lt + 1]
+      arr[lt + 1] = arr[i]
+      arr[i] = temp
+
+      lt++
+      i++
+    } else if (arr[i] > val) {
+      const temp = arr[i]
+      arr[i] = arr[gt - 1]
+      arr[gt - 1] = temp
+
+      gt--
+    } else { // arr[i] === val
+      i++
+    }
+  }
+
+  arr[l] = arr[lt]
+  arr[lt] = val
+
+  __quickSort3Ways(arr, l, lt - 1)
+  __quickSort3Ways(arr, gt, r)
+}
