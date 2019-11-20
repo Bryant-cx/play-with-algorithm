@@ -7,19 +7,25 @@
   <title>Document</title>
 </head>
 <body>
-  <script src="./index.js"></script>
-  <script src="./test.js"></script>
+  <!-- <script src="./index.js"></script> -->
+  <!-- <script src="./test.js"></script> -->
+  <script src="./quicktest.js"></script>
   <script>
     // const arr = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
     // const arr = [1, 2, 3, 5, 4, 1, 2, 4, 2, 3]
     // const arr = [1, 2, 3, 5, 4, 7, 6, 8, 9, 10]
+    const num = 10000000
+    const times = 10000
 
     // quickSort2(arr)
     // selectSort(arr)
     // console.log(arr)
     // test(100000, 10)
     // testSort('selectSort', selectSort, 10)
-    testSort('quickSort', quickSort3Ways, 1000000, 10)
+    // testSort('quickSort', quickSort3Ways, 1000000, 10)
+    console.log('quickSort1: ', test(quickSort, getNearlySortedArr(num, times)))
+    console.log('quickSort2: ', test(quickSort2, getNearlySortedArr(num, times)))
+    console.log('quickSort3Ways: ', test(quickSort3Ways, getNearlySortedArr(num, times)))
   </script>
 </body>
 </html>
